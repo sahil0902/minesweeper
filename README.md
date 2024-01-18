@@ -45,19 +45,19 @@ This Minesweeper game offers the following features:
 4. Instructions toggle for gameplay guidance.
 5. Customizable audio files in the audios folder for a personalized sound experience.
 
-#Scoring System
+# Scoring System
 The scoring system increments with each safe cell reveal. Aim to achieve the maximum score by revealing all safe cells while avoiding bombs.
 
-#Highest Score
+# Highest Score
 The game records the highest score achieved in localStorage. Check the highest score by loading the game, and beat your own record.
 
-#End Game
+# End Game
 The game ends when either all safe cells are revealed (victory) or a bomb is clicked (defeat). The end game screen displays the outcome.
 
-#Play Again
+# Play Again
 Click the "Play Again" button to reload the game and start a new round.
 
-#License
+# License
 This Minesweeper game is open-source and available under the MIT License. Feel free to use, modify, and distribute the code.
 
 For more information, visit the GitHub repository.
