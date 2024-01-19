@@ -66,6 +66,34 @@ h1 {
   display: flex;
   flex-wrap: wrap;
 }
+.live {
+  position: absolute;
+  left: 26rem;
+   top: 4.5rem;
+   margin-left: 0.1px;
+  border-radius: 1px solid black;
+  animation-duration: 3s;
+ 
+}
+
+@keyframes blink-vibrate {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(0, 2px); 
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+}
+
+.blink-vibrate {
+  animation: blink-vibrate 1s linear infinite;
+}
 
 .cell {
   width: 48px;
@@ -238,6 +266,8 @@ h1 {
   }
   .game-panel {
     position: relative;
+    padding: 1rem 1rem 1rem 1rem;
+    margin: 1rem 1rem 1rem 1rem;
     left: 3rem;
   }
   .score-counter{
@@ -247,5 +277,11 @@ h1 {
   #Instructions {
    
     left: 1rem;
+  }
+  .live {
+    display: flex;
+    left: 1rem;
+    margin-left: 19rem;
+    margin-top: 1rem;
   }
 }

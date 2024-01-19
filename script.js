@@ -12,6 +12,8 @@ const playAgainButton = document.querySelector('.play-again');
 
 const info = document.querySelector(".info");
 
+const lives = document.querySelector('.live');
+
 
 let isInstructionsVisible = false;
 
@@ -138,23 +140,34 @@ for (let i = 1; i <= totalCells; i++) {
     start.play();
     if (bombsList.includes(i)) {
       cell.classList.add('cell-bomb');
+  
 
-      endGame(false);
-      
-    }   else {
-      if(!cell.classList.contains('cell-clicked')){
+      // Remove one heart
+      const hearts = lives.innerText;
+      lives.innerText = hearts.slice(0, -2); 
+      lives.classList.add('blink-vibrate');
+      setInterval(()=>{
+        lives.classList.remove('blink-vibrate');
+      },2000);
+
+      // Check if all hearts are removed
+      if (lives.innerText === '') {
+        endGame(false); // Trigger end game with loss
+        Loseaudio();
+      }
+    } else {
+      if (!cell.classList.contains('cell-clicked')) {
         cell.classList.add('cell-clicked');
-      
+
         score++;
         scoreCounter.innerText = score.toString().padStart(5, '0');
-      
+
         highestScore.push(score);
         localStorage.setItem('highestScore', JSON.stringify(highestScore));
-      
+
         if (score == maxScore) {
           endGame(true);
           winSound();
-
         }
       }
     }
