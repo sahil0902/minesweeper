@@ -12,7 +12,7 @@ const playAgainButton = document.querySelector('.play-again');
 
 const info = document.querySelector(".info");
 
-const lives = document.querySelector('.live');
+const lifes = document.querySelector('.life');
 
 
 let isInstructionsVisible = false;
@@ -143,15 +143,15 @@ for (let i = 1; i <= totalCells; i++) {
   
 
       // Remove one heart
-      const hearts = lives.innerText;
-      lives.innerText = hearts.slice(0, -2); 
-      lives.classList.add('blink-vibrate');
+      const hearts = lifes.innerText;
+      lifes.innerText = hearts.slice(0, -2); 
+      lifes.classList.add('blink-vibrate');
       setInterval(()=>{
-        lives.classList.remove('blink-vibrate');
+        lifes.classList.remove('blink-vibrate');
       },2000);
 
       // Check if all hearts are removed
-      if (lives.innerText === '') {
+      if (lifes.innerText === '') {
         endGame(false); // Trigger end game with loss
         Loseaudio();
       }
