@@ -184,6 +184,7 @@ if(endGame == false){
   }
   revealAllBombs();
   Loseaudio();
+  
   endGameScreen.classList.remove('hidden');
 }
 
