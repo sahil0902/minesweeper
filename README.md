@@ -32,7 +32,7 @@ Minesweeper is a classic game where the player uncovers cells on a grid, avoidin
 
 Simply clone the repository:
 
-git clone https://github.com/sahil0902/minesweeper
+git clone https://github.com/sahil0902/minesweeper.git
 Open the index.html file in your web browser to start playing.
 
 # Game Features
