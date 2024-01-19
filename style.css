@@ -66,7 +66,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
 }
-.live {
+.life {
   position: absolute;
   left: 26rem;
    top: 4.5rem;
@@ -274,11 +274,16 @@ h1 {
     position: relative;
     right: 3rem;
   }
+  .info{
+    position: relative;
+    left: 98%;
+   
+  }
   #Instructions {
    
     left: 1rem;
   }
-  .live {
+  .life {
     display: flex;
     left: 1rem;
     margin-left: 19rem;
