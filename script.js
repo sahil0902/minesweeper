@@ -39,7 +39,7 @@ const totalCells = 100;
 const totalBomb = Math.floor(Math.random() * 50) + 1;
 
 tb.innerHTML = `Total 💣: <span class="total-bomb">${totalBomb}</span>`;
-const maxScore = totalCells-totalBomb;
+const maxScore = 20;
 winningScore.innerHTML = `Winning Score:<span class = "winning"> ${maxScore}</span>`;
 
 
@@ -104,6 +104,11 @@ function tapSound(){
 }
 
 
+function winSound(){
+  const audio = new Audio("./audios/win.mp3");
+  audio.play();
+}
+
 function showHighestScore(){
   let storedHighestScore = JSON.parse(localStorage.getItem('highestScore')) || [];
    // Check if storedHighestScore is an array
@@ -148,6 +153,7 @@ for (let i = 1; i <= totalCells; i++) {
       
         if (score == maxScore) {
           endGame(true);
+          winSound();
 
         }
       }
@@ -172,12 +178,12 @@ if(endGame == false){
 }
  function endGame(isVictory) {
   if (isVictory) {
+    winSound();
     endGameText.innerHTML = 'YOU<br>WON';
     endGameScreen.classList.add('win');
   }
   revealAllBombs();
-   Loseaudio();
-  
+  Loseaudio();
   endGameScreen.classList.remove('hidden');
 }
 
