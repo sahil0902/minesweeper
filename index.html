@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@700&family=Press+Start+2P&display=swap"
     rel="stylesheet" />
   <link href="./style.css" rel="stylesheet" />
+  <link rel="manifest" href="/manifest.json">
   <link rel="shortcut icon" href="./images/logo.jpeg" type="image/x-icon" />
 </head>
 
@@ -59,6 +60,15 @@
     </div>
 
     <script src="./script.js"></script>
+    <script src="./sw.js"></script>
+    
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js');
+        });
+      }
+    </script>
 </body>
 
 </html>
