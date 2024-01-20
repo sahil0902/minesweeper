@@ -10,7 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@700&family=Press+Start+2P&display=swap"
     rel="stylesheet" />
   <link href="./style.css" rel="stylesheet" />
-  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Minesweeper">
+<link rel="apple-touch-icon" href="images/logo.jpeg">
+  <link rel="manifest" href="manifest.json">
   <link rel="shortcut icon" href="./images/logo.jpeg" type="image/x-icon" />
 </head>
 
@@ -63,12 +67,14 @@
     <script src="./sw.js"></script>
     
     <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js');
-        });
-      }
-    </script>
+     if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(function(registration) {
+    console.log('Service Worker registered with scope:', registration.scope);
+  }).catch(function(error) {
+    console.log('Service Worker registration failed:', error);
+  });
+}
+      </script>
 </body>
 
 </html>
