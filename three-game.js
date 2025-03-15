@@ -280,7 +280,7 @@ async function init() {
         controls.zoomSpeed = 1.2;
         controls.autoRotate = true; // Auto-rotate at start for cinematic effect
         controls.autoRotateSpeed = 0.5;
-        
+
         // Detect touch device and adjust controls
         if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
             // Adjust for touch devices
@@ -289,6 +289,24 @@ async function init() {
             controls.enablePan = false; // Disable panning on touch devices to avoid confusion
             controls.screenSpacePanning = false;
             controls.maxDistance = 30;  // Limit zoom out
+            
+            // Add these settings to improve mobile experience
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.08; // Smoother damping
+            controls.touches = {
+                ONE: THREE.TOUCH.ROTATE,
+                TWO: THREE.TOUCH.DOLLY_PAN
+            };
+            controls.rotateSpeed = 0.5; // Slower for better control
+            
+            // Lock rotation to avoid camera flipping
+            controls.minPolarAngle = Math.PI/6; // Minimum angle (prevent looking from below)
+            controls.maxPolarAngle = Math.PI/2 - 0.1; // Maximum angle (prevent looking from top)
+            
+            // Auto-rotation duration
+            setTimeout(() => {
+                controls.autoRotate = false; // Disable auto-rotate after a short time
+            }, 3000);
         }
         
         // Add enhanced lighting
@@ -1135,8 +1153,10 @@ function animate() {
     // Update TWEEN animations
     TWEEN.update();
     
-    // Update controls
-    controls.update();
+    // Update controls - always update controls regardless of performance settings for better responsiveness
+    if (controls) {
+        controls.update();
+    }
     
     // Lock game board rotation to prevent tilting during explosions
     lockGameBoardRotation();
@@ -1379,16 +1399,24 @@ function onRightClick(event) {
 
 // Touch event handling
 let touchTimeout = null; // For distinguishing between tap and long-press
+let touchStartPosition = { x: 0, y: 0 }; // Track touch start position
+let isTouchMoving = false; // Flag to track if touch is moving (for panning/rotation)
 
 // Handle touch start
 function onTouchStart(event) {
-    // Prevent default only for game board interactions
+    // Always prevent default for canvas to stop unwanted behaviors
     if (event.target.tagName === 'CANVAS') {
         event.preventDefault();
+        event.stopPropagation(); // Stop event propagation
     }
     
     // Get the first touch
     const touch = event.touches[0];
+    
+    // Store touch start position
+    touchStartPosition.x = touch.clientX;
+    touchStartPosition.y = touch.clientY;
+    isTouchMoving = false;
     
     // Update mouse position for raycaster
     updateMousePositionFromTouch(touch);
@@ -1399,27 +1427,42 @@ function onTouchStart(event) {
     }
     
     touchTimeout = setTimeout(() => {
-        handleLongPress(touch);
+        if (!isTouchMoving) { // Only handle long press if not moving
+            handleLongPress(touch);
+        }
         touchTimeout = null;
     }, 500); // 500ms long press to flag
 }
 
 // Handle touch end
 function onTouchEnd(event) {
-    // If touchTimeout still exists, it was a regular tap, not a long press
-    if (touchTimeout !== null) {
+    // Always prevent default for canvas interactions
+    if (event.target.tagName === 'CANVAS') {
+        event.preventDefault();
+        event.stopPropagation(); // Stop event propagation
+    }
+    
+    // If touchTimeout still exists and we're not in a moving state, it was a regular tap
+    if (touchTimeout !== null && !isTouchMoving) {
         clearTimeout(touchTimeout);
-        
-        // Prevent default for game interactions
-        if (event.target.tagName === 'CANVAS') {
-            event.preventDefault();
-        }
         
         // Regular tap is equivalent to left click
         if (event.changedTouches.length > 0) {
             const touch = event.changedTouches[0];
-            updateMousePositionFromTouch(touch);
-            handleTap();
+            
+            // Check if the touch ended near where it started (not a drag)
+            const touchEndX = touch.clientX;
+            const touchEndY = touch.clientY;
+            const touchDistance = Math.sqrt(
+                Math.pow(touchEndX - touchStartPosition.x, 2) + 
+                Math.pow(touchEndY - touchStartPosition.y, 2)
+            );
+            
+            // If the touch moved less than a threshold, consider it a tap
+            if (touchDistance < 10) {
+                updateMousePositionFromTouch(touch);
+                handleTap();
+            }
         }
         
         touchTimeout = null;
@@ -1428,13 +1471,26 @@ function onTouchEnd(event) {
 
 // Handle touch move
 function onTouchMove(event) {
-    // Only prevent default for game board
+    // Always prevent default for canvas
     if (event.target.tagName === 'CANVAS') {
         event.preventDefault();
+        event.stopPropagation(); // Stop event propagation
     }
     
     if (event.touches.length === 1) {
         const touch = event.touches[0];
+        
+        // Calculate distance moved
+        const touchDistance = Math.sqrt(
+            Math.pow(touch.clientX - touchStartPosition.x, 2) + 
+            Math.pow(touch.clientY - touchStartPosition.y, 2)
+        );
+        
+        // If touch moved more than threshold, mark as moving (for camera control)
+        if (touchDistance > 5) {
+            isTouchMoving = true;
+        }
+        
         updateMousePositionFromTouch(touch);
     }
 }
