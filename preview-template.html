@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minesweeper Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@700&family=Orbitron:wght@400;500;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #050518;
+      font-family: 'Orbitron', sans-serif;
+      color: white;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(100, 150, 255, 0.03)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8V12M7 12H16M9 16H15"/></svg>');
+      background-repeat: repeat;
+      background-size: 60px 60px;
+      overflow: hidden;
+    }
+    
+    .preview-container {
+      width: 1200px;
+      height: 630px;
+      position: relative;
+      display: flex;
+      overflow: hidden;
+      border-radius: 15px;
+    }
+    
+    .game-side {
+      width: 70%;
+      background-color: rgba(10, 20, 40, 0.8);
+      position: relative;
+    }
+    
+    .info-side {
+      width: 30%;
+      background-color: rgba(5, 10, 30, 0.95);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    .game-board {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 80%;
+      background-color: rgba(20, 40, 80, 0.3);
+      border-radius: 10px;
+      perspective: 800px;
+      transform-style: preserve-3d;
+      box-shadow: 0 0 30px rgba(0, 100, 255, 0.2);
+    }
+    
+    .grid {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotateX(45deg) rotateZ(30deg);
+      width: 80%;
+      height: 80%;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      grid-template-rows: repeat(10, 1fr);
+      gap: 5px;
+    }
+    
+    .cell {
+      background-color: rgba(40, 60, 100, 0.8);
+      border-radius: 2px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s;
+    }
+    
+    .cell.revealed {
+      background-color: rgba(60, 90, 150, 0.6);
+    }
+    
+    .cell.bomb {
+      background-color: rgba(200, 30, 30, 0.8);
+    }
+    
+    .cell.flag {
+      background-color: rgba(40, 60, 100, 0.8);
+      position: relative;
+    }
+    
+    .cell.flag:after {
+      content: '🚩';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 8px;
+    }
+    
+    .game-panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(10, 25, 50, 0.7);
+      padding: 20px;
+      border-bottom: 2px solid rgba(100, 150, 255, 0.3);
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    h1 {
+      margin: 0;
+      font-size: 32px;
+      text-align: center;
+      color: #80c0ff;
+      text-shadow: 0 0 10px rgba(0, 150, 255, 0.7);
+    }
+    
+    .score {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+      background-color: rgba(0, 20, 50, 0.5);
+      padding: 10px 15px;
+      border-radius: 5px;
+      border: 1px solid rgba(100, 150, 255, 0.3);
+    }
+    
+    .score-label {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 14px;
+      color: #80c0ff;
+    }
+    
+    .score-counter {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 14px;
+      color: #fff;
+      text-shadow: 0 0 5px rgba(0, 150, 255, 0.7);
+    }
+    
+    .life {
+      color: crimson;
+      font-size: 18px;
+      letter-spacing: -3px;
+    }
+    
+    .difficulty-selector {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+    
+    .mode-btn {
+      flex: 1;
+      margin: 0 5px;
+      padding: 8px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: rgba(30, 50, 100, 0.5);
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid rgba(100, 150, 255, 0.3);
+    }
+    
+    .mode-btn.active {
+      background-color: rgba(0, 100, 255, 0.3);
+      box-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
+    }
+    
+    .info-side h2 {
+      color: #80c0ff;
+      font-size: 28px;
+      margin: 0 0 20px 0;
+    }
+    
+    .feature-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .feature-list li {
+      margin-bottom: 15px;
+      padding-left: 25px;
+      position: relative;
+      font-size: 16px;
+    }
+    
+    .feature-list li:before {
+      content: '💣';
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 16px;
+    }
+    
+    .cta {
+      background-color: rgba(0, 100, 255, 0.3);
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      border-radius: 5px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0, 150, 255, 0.5);
+      border: 1px solid rgba(100, 150, 255, 0.5);
+    }
+    
+    .explosion {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,0,0.7) 0%, rgba(255,69,0,0.5) 50%, rgba(255,0,0,0) 100%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      animation: explosion 1s linear infinite;
+      opacity: 0.8;
+      mix-blend-mode: screen;
+    }
+    
+    @keyframes explosion {
+      0% { transform: translate(-50%, -50%) scale(0.2); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    }
+    
+    /* Bomb model */
+    .bomb-model {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background-color: #151515;
+      border-radius: 50%;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+    
+    .bomb-model:before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 15px;
+      background-color: #8B4513;
+      border-radius: 2px;
+    }
+    
+    .bomb-model:after {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 8px;
+      background-color: #FF4500;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255, 69, 0, 0.7);
+      animation: glow 1s infinite alternate;
+    }
+    
+    @keyframes glow {
+      0% { box-shadow: 0 0 5px rgba(255, 69, 0, 0.7); }
+      100% { box-shadow: 0 0 15px rgba(255, 69, 0, 1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-container">
+    <div class="game-side">
+      <div class="game-panel">
+        <h1>Minesweeper 💣</h1>
+        <div class="score">
+          <span class="score-label">SCORE</span>
+          <span class="score-counter">00015</span>
+          <span class="life">♥️♥️♥️</span>
+        </div>
+        <div class="difficulty-selector">
+          <button class="mode-btn">Easy</button>
+          <button class="mode-btn active">Medium</button>
+          <button class="mode-btn">Hard</button>
+        </div>
+      </div>
+      
+      <div class="game-board">
+        <div class="grid">
+          <!-- Generate 10x10 grid of cells with some revealed, bombs, and flags -->
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const grid = document.querySelector('.grid');
+              
+              for (let i = 0; i < 100; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                
+                // Randomly assign some cells as revealed, bombs, or flags
+                const rand = Math.random();
+                if (rand < 0.2) {
+                  cell.classList.add('revealed');
+                } else if (rand < 0.3) {
+                  cell.classList.add('bomb');
+                } else if (rand < 0.4) {
+                  cell.classList.add('flag');
+                }
+                
+                grid.appendChild(cell);
+              }
+              
+              // Add some explosion effects
+              for (let i = 0; i < 3; i++) {
+                const explosion = document.createElement('div');
+                explosion.className = 'explosion';
+                explosion.style.left = `${Math.random() * 100}%`;
+                explosion.style.top = `${Math.random() * 100}%`;
+                explosion.style.animationDelay = `${Math.random() * 1}s`;
+                document.querySelector('.game-board').appendChild(explosion);
+              }
+              
+              // Add a bomb model
+              const bomb = document.createElement('div');
+              bomb.className = 'bomb-model';
+              bomb.style.left = '70%';
+              bomb.style.top = '40%';
+              document.querySelector('.game-board').appendChild(bomb);
+            });
+          </script>
+        </div>
+      </div>
+    </div>
+    
+    <div class="info-side">
+      <div>
+        <h2>Features</h2>
+        <ul class="feature-list">
+          <li>Multiple difficulty levels</li>
+          <li>Stunning visual effects</li>
+          <li>Realistic explosions</li>
+          <li>Dynamic lighting</li>
+          <li>Score tracking</li>
+          <li>Mobile optimized</li>
+        </ul>
+      </div>
+      
+      <div class="cta">
+        Play Now!
+      </div>
+    </div>
+  </div>
+</body>
+</html> 

@@ -1,133 +1,100 @@
-# Minesweeper Game
+# Minesweeper 💣
 
-## Overview
+## 🌟 Overview
 
-This repository contains the source code for a simple Minesweeper game implemented using HTML, CSS, and JavaScript. The game provides instructions on how to play and includes features such as revealing cells, marking suspicious cells, and tracking the player's score.
+A beautiful, modern implementation of the classic Minesweeper game with enhanced visuals and gameplay features. Challenge yourself to clear the minefield without triggering any bombs!
 
-## Table of Contents
+![Minesweeper Screenshot](./images/preview.png)
 
-- [Introduction](#introduction)
-- [How to Play](#how-to-play)
-- [Installation](#installation)
-- [Game Features](#game-features)
-- [Audio](#audio)
-- [Scoring System](#scoring-system)
-- [Highest Score](#highest-score)
-- [End Game](#end-game)
-- [Play Again](#play-again)
-- [License](#license)
+## 🎮 How to Play
 
-# Introduction
+- **Left-click** on a cell to reveal it
+- **Right-click** (or long press on mobile) to place a flag on suspected bomb locations
+- **Navigate** the board by rotating, zooming, and panning
+- **Reach** the winning score by revealing safe cells while avoiding bombs
+- **Lose a life** when you reveal a bomb - be careful!
 
-Minesweeper is a classic game where the player uncovers cells on a grid, avoiding bombs while aiming to reveal all safe cells. This implementation adds a modern twist with audio effects and a scoring system.
+## 💥 Game Features
 
-# How to Play
+- **Multiple difficulty levels:**
+  - **Easy:** 10-15 bombs, 3 lives
+  - **Medium:** 15-25 bombs, 3 lives
+  - **Hard:** 25-35 bombs, 2 lives
 
-1. Click on a cell to reveal its content.
-2. Avoid clicking on cells with bombs.
-3. Right-click to mark suspicious cells with flags.
-4. Aim to reveal all safe cells and achieve the highest score.
+- **Enhanced visuals** with realistic explosions and dynamic lighting
+- **Mobile-friendly** controls with touch support
+- **Score tracking** and local high score recording
+- **Satisfying audio** feedback for all interactions
 
-# Installation
+## 🎨 Visual Effects
 
-Simply clone the repository:
+- **Realistic bomb explosions** with dynamic flash, shockwave, and particle effects
+- **Detailed bomb and flag models** with high-quality textures
+- **Dynamic lighting system** that creates an immersive atmosphere
+- **Adaptive effects** that adjust based on device capabilities
+- **Smooth animations** for revealing cells and placing flags
+- **Visual feedback** for all game actions to enhance player experience
 
+## 🚀 Quick Start
+
+```bash
 git clone https://github.com/sahil0902/minesweeper
-Open the index.html file in your web browser to start playing.
+cd minesweeper
+```
 
-# Game Features
+Then simply open `index.html` in your browser to start playing! No additional dependencies or installation required.
 
-This Minesweeper game offers the following features:
+## 💻 Technical Details
 
-1. Dynamic grid generation with bomb placement.
-2. Audio effects for interactions.
-3. Score tracking and winning conditions.
-4. Instructions toggle for gameplay guidance.
-5. Customizable audio files in the audios folder for a personalized sound experience.
+This Minesweeper implementation is built with:
+- **HTML5** for structure
+- **CSS3** for styling and animations
+- **JavaScript** for game logic and interactions
+- **Three.js** for graphics rendering
 
-# Scoring System
-The scoring system increments with each safe cell reveal. Aim to achieve the maximum score by revealing all safe cells while avoiding bombs.
+## 🏆 Scoring System
 
-# Highest Score
-The game records the highest score achieved in localStorage. Check the highest score by loading the game, and beat your own record.
+The game tracks your score as you reveal safe cells. Each difficulty level has a different winning score threshold:
+- **Easy:** 80% of safe cells
+- **Medium:** 85% of safe cells
+- **Hard:** 90% of safe cells
 
-# End Game
-The game ends when either all safe cells are revealed (victory) or a bomb is clicked (defeat). The end game screen displays the outcome.
+Beat your highest score and challenge friends to do better!
 
-# Play Again
-Click the "Play Again" button to reload the game and start a new round.
+## 📱 Mobile Support
 
-# License
-This Minesweeper game is open-source and available under the MIT License. Feel free to use, modify, and distribute the code.
+The game is fully optimized for mobile devices with:
+- **Touch controls** (tap to reveal, long press to flag)
+- **Responsive design** that adapts to different screen sizes
+- **Performance optimizations** for smooth gameplay on any device
+- **Reduced effects** on mobile to maintain high frame rates
+
+## 🔊 Sound Effects
+
+The game includes immersive sound effects for:
+- Revealing cells
+- Placing flags
+- Explosions
+- Game victory and defeat
+
+## 👥 Credits
+
+- Game design and development by Sahil
+- Visual effects and enhancements by your friendly AI assistant
+- Three.js for the 3D rendering capabilities
+- Inspiration from the classic Minesweeper game
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+---
+
+Enjoy the game! 💣 Report any issues or suggestions on the GitHub repository.
+
 
 For more information, visit the GitHub repository.
 
 
 Feel free to adjust the formatting or add any additional sections as needed! Let me know if you have any specific preferences or if you'd like further improvements.
-=======
-# Minesweeper Game
 
-## Overview
-
-This repository contains the source code for a simple Minesweeper game implemented using HTML, CSS, and JavaScript. The game provides instructions on how to play and includes features such as revealing cells, marking suspicious cells, and tracking the player's score.
-
-## Table of Contents
-
-- [Introduction](#introduction)
-- [How to Play](#how-to-play)
-- [Installation](#installation)
-- [Game Features](#game-features)
-- [Audio](#audio)
-- [Scoring System](#scoring-system)
-- [Highest Score](#highest-score)
-- [End Game](#end-game)
-- [Play Again](#play-again)
-- [License](#license)
-
-# Introduction
-
-Minesweeper is a classic game where the player uncovers cells on a grid, avoiding bombs while aiming to reveal all safe cells. This implementation adds a modern twist with audio effects and a scoring system.
-
-# How to Play
-
-1. Click on a cell to reveal its content.
-2. Avoid clicking on cells with bombs.
-3. Right-click to mark suspicious cells with flags.
-4. Aim to reveal all safe cells and achieve the highest score.
-
-# Installation
-
-Simply clone the repository:
-
-git clone https://github.com/sahil0902/minesweeper.git
-Open the index.html file in your web browser to start playing.
-
-# Game Features
-
-This Minesweeper game offers the following features:
-
-1. Dynamic grid generation with bomb placement.
-2. Audio effects for interactions.
-3. Score tracking and winning conditions.
-4. Instructions toggle for gameplay guidance.
-5. Customizable audio files in the audios folder for a personalized sound experience.
-
-# Scoring System
-The scoring system increments with each safe cell reveal. Aim to achieve the maximum score by revealing all safe cells while avoiding bombs.
-
-# Highest Score
-The game records the highest score achieved in localStorage. Check the highest score by loading the game, and beat your own record.
-
-# End Game
-The game ends when either all safe cells are revealed (victory) or a bomb is clicked (defeat). The end game screen displays the outcome.
-
-# Play Again
-Click the "Play Again" button to reload the game and start a new round.
-
-# License
-This Minesweeper game is open-source and available under the MIT License. Feel free to use, modify, and distribute the code.
-
-For more information, visit the GitHub repository.
-
-
-Feel free to adjust the formatting or add any additional sections as needed! Let me know if you have any specific preferences or if you'd like further improvements.
