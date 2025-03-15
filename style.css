@@ -274,6 +274,22 @@ h1 {
   .end-game-screen {
     width: 90%;
     max-width: 300px;
+
+  .game-panel {
+    position: relative;
+    padding: 1rem 1rem 1rem 1rem;
+    margin: 1rem 1rem 1rem 1rem;
+    left: 3rem;
+  }
+  .score-counter{
+    position: relative;
+    right: 3rem;
+  }
+  .info{
+    position: relative;
+    left: 95%;
+   
+
   }
   
   #Instructions {
