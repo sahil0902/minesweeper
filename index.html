@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Minesweeper 💣</title>
+    <title>Minesweeper 3D 💣</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,19 +15,27 @@
   </head>
 
   <body>
-    <div >
+    <div>
       <button class="info">ℹ️</button>
       <div id="Instructions">
-        <h2>How to Play Minesweeper (Without Blowing Yourself Up)</h2> <ul> <li><b>It's a Minefield Out There:</b> The game board is a grid full of cells. Some cells have bombs that will blast you to smithereens! Other cells are safe and cozy.</li> <li><b>Choose Wisely Grasshopper:</b> Click a cell to reveal it. If you don't see an earth-shattering KABOOM, woohoo! The number tells you how many bombs are lurking nearby. Keep clicking safe cells to rack up points.</li> <li><b>Avoid the Hot Potatoes:</b> Clicking a bomb ends the game real quick. You'll get slapped with a "Game Over" screen as punishment. Rude!</li> <li><b>Mark Suspicious Cells:</b> Right-click a cell to place a flag if you think it's a bomb. This helps jog your memory on places to avoid. </li> <li><b>Mission: Don't Explode!</b> Reveal all the safe cells while steering clear of bombs to win. Party like it's 1999 when you are victorious!</li> </ul> <p>It takes some luck and logic, but you'll be a Minesweeper master in no time. Listen for sleigh bells ringing when you win, or prepare for the sad trombone if you detonate.</p> <p>May the minesweep odds be ever in your favor! Now go bomb some bomblets!</p> </div>
+        <h2>How to Play 3D Minesweeper</h2> 
+        <ul> 
+          <li><b>It's a Minefield Out There:</b> The 3D game board is a grid full of cells. Some cells have bombs that will blast you to smithereens! Other cells are safe and cozy.</li> 
+          <li><b>Navigate in 3D:</b> You can rotate, zoom, and pan around the board using your mouse for a better view of the minefield.</li>
+          <li><b>Choose Wisely Grasshopper:</b> Click a cell to reveal it. If it's safe, you earn points. If it's a bomb, you lose a life.</li> 
+          <li><b>Mark Suspicious Cells:</b> Right-click a cell to place a flag if you think it's a bomb. This helps you remember dangerous spots.</li> 
+          <li><b>Mission: Don't Explode!</b> Reveal enough safe cells to reach the winning score while steering clear of bombs to win.</li> 
+        </ul> 
+        <p>Enjoy the immersive 3D experience with explosion effects and realistic interactions!</p>
+      </div>
 
     <div class="game-container">
       <header class="game-panel">
-        <h1>Game Board</h1>
+        <h1>3D Minesweeper</h1>
         <div class="score">
           <span class="score-label">SCORE</span>
           <span class="score-counter">00000</span>
           <span class="life">♥️♥️♥️</span>
-       
         </div>
       </header>
       <main class="game-board">
@@ -42,6 +50,7 @@
       </main>
     </div>
    
-    <script src="./script.js"></script>
+    <!-- Import Three.js using ES module CDN links (skypack) -->
+    <script type="module" src="./three-game.js"></script>
   </body>
 </html>
