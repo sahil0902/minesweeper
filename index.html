@@ -19,8 +19,8 @@
     <meta name="theme-color" content="#050518">
     
     <!-- Favicon and Apple Touch Icon -->
-    <link rel="shortcut icon" href="./images/logo.jpeg" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="./images/logo.jpeg">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="./images/logo.png">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -83,6 +83,15 @@
         box-shadow: 0 5px 15px rgba(0, 100, 255, 0.3);
       }
       
+      .mode-btn.active::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, rgba(0, 150, 255, 0.8), transparent);
+      }
     </style>
   </head>
 
@@ -147,86 +156,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@tweenjs/tween.js@18.6.4/dist/tween.umd.js"></script>
     <script type="module" src="./three-game.js"></script>
   </body>
-</html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Minesweeper 💣</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@700&family=Press+Start+2P&display=swap"
-    rel="stylesheet" />
-  <link href="./style.css" rel="stylesheet" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Minesweeper">
-<link rel="apple-touch-icon" href="images/logo.jpeg">
-  <link rel="manifest" href="manifest.json">
-  <link rel="shortcut icon" href="./images/logo.jpeg" type="image/x-icon" />
-</head>
-
-<body>
-  <div>
-    <button class="info">ℹ️</button>
-    <div id="Instructions">
-      <h2>How to Play Minesweeper (Without Blowing Yourself Up)</h2>
-      <ul>
-        <li><b>It's a Minefield Out There:</b> The game board is a grid full of cells. Some cells have bombs that will
-          blast you to smithereens! Other cells are safe and cozy.</li>
-        <li><b>Choose Wisely Grasshopper:</b> Click a cell to reveal it. If you don't see an earth-shattering KABOOM,
-          woohoo! The number tells you how many bombs are lurking nearby. Keep clicking safe cells to rack up points by keeping in mind that you have 3 ♥️.
-        </li>
-        <li><b>Avoid the Hot Potatoes:</b> Clicking a bomb ends the game real quick. You'll get slapped with a "Game
-          Over" screen as punishment. Rude!</li>
-        <li><b>Mark Suspicious Cells:</b> Right-click a cell to place a flag if you think it's a bomb. This helps jog
-          your memory on places to avoid. </li>
-        <li><b>Mission: Don't Explode!</b> Reveal all the safe cells while steering clear of bombs to win. Party like
-          it's 1999 when you are victorious!</li>
-      </ul>
-      <p>It takes some luck and logic, but you'll be a Minesweeper master in no time. Listen for sleigh bells ringing
-        when you win, or prepare for the sad trombone if you detonate.</p>
-      <p>May the minesweep odds be ever in your favor! Now go bomb some bomblets!</p>
-    </div>
-
-    <div class="game-container">
-      <header class="game-panel">
-        <h1>Game Board</h1>
-        <div class="score">
-          <span class="score-label">SCORE</span>
-          <span class="score-counter">00000</span>
-          <span class="life">♥️♥️♥️</span>
-
-        </div>
-      </header>
-      <main class="game-board">
-        <div class="grid">
-        </div>
-
-        <div class="end-game-screen hidden">
-          <h2 class="end-game-text">Game<br />Over</h2>
-          <button class="btn play-again">Play Again</button>
-        </div>
-
-      </main>
-    </div>
-
-    <script src="./script.js"></script>
-    <script src="./sw.js"></script>
-    
-    <script>
-     if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').then(function(registration) {
-    console.log('Service Worker registered with scope:', registration.scope);
-  }).catch(function(error) {
-    console.log('Service Worker registration failed:', error);
-  });
-}
-      </script>
-</body>
-
 </html>
 

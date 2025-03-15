@@ -36,7 +36,20 @@ async function generatePreview() {
 
     // Wait for all content to load (including JavaScript execution)
     console.log('Waiting for content to load...');
-    await page.waitForTimeout(1000);
+    await page.evaluate(() => {
+      return new Promise(resolve => {
+        // Check if document is already complete
+        if (document.readyState === 'complete') {
+          return resolve();
+        }
+        
+        // Wait for the load event
+        window.addEventListener('load', resolve);
+        
+        // Also resolve after 1 second as a fallback
+        setTimeout(resolve, 1000);
+      });
+    });
 
     // Take a screenshot
     console.log('Taking screenshot...');
