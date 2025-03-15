@@ -92,9 +92,9 @@ This project is open source and available under the MIT License.
 
 Enjoy the game! 💣 Report any issues or suggestions on the GitHub repository.
 
-### 🔍 Future Enhancements
 
-- Customizable themes
-- Global leaderboard
-- More challenging game modes
-- Achievement system
+For more information, visit the GitHub repository.
+
+
+Feel free to adjust the formatting or add any additional sections as needed! Let me know if you have any specific preferences or if you'd like further improvements.
+

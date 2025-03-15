@@ -541,10 +541,31 @@ h3, h2:not(.end-game-text) {
   }
   
   .end-game-screen {
+
     width: 85%;
     max-width: 320px;
     padding: 25px;
     border-radius: 20px;
+
+    width: 90%;
+    max-width: 300px;
+
+  .game-panel {
+    position: relative;
+    padding: 1rem 1rem 1rem 1rem;
+    margin: 1rem 1rem 1rem 1rem;
+    left: 3rem;
+  }
+  .score-counter{
+    position: relative;
+    right: 3rem;
+  }
+  .info{
+    position: relative;
+    left: 95%;
+   
+
+
   }
   
   #Instructions {

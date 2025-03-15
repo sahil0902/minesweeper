@@ -1,0 +1,15 @@
+{
+    "name": "Minesweeper",
+    "short_name": "Minesweeper",
+    "icons": [
+      {
+        "src": "images/logo.jpeg",
+        "sizes": "192x192",
+        "type": "image/jpeg" 
+      }
+    ],
+    "start_url": "https://selene.hud.ac.uk/u2256817/minesweeper/",
+    "display": "standalone",
+    "theme_color": "#001732",
+    "background_color": "#d8eee8"
+  }
