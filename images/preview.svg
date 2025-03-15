@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#050518"/>
+  
+  <!-- Background pattern -->
+  <pattern id="bombPattern" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+    <circle cx="30" cy="30" r="12" fill="none" stroke="rgba(100, 150, 255, 0.03)" stroke-width="2"/>
+    <path d="M30 20V30M25 30H35M27 34H33" stroke="rgba(100, 150, 255, 0.03)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#bombPattern)"/>
+  
+  <!-- Left section (game) -->
+  <rect x="50" y="50" width="750" height="530" rx="15" fill="rgba(10, 20, 40, 0.8)"/>
+  
+  <!-- Right section (info) -->
+  <rect x="800" y="50" width="350" height="530" rx="15" fill="rgba(5, 10, 30, 0.95)"/>
+  
+  <!-- Title -->
+  <text x="425" y="100" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#80c0ff" text-anchor="middle" filter="drop-shadow(0 0 6px rgba(0, 150, 255, 0.7))">Minesweeper 💣</text>
+  
+  <!-- Game board outline -->
+  <rect x="100" y="150" width="650" height="400" rx="10" fill="rgba(20, 40, 80, 0.3)" filter="drop-shadow(0 0 20px rgba(0, 100, 255, 0.2))"/>
+  
+  <!-- Game board cells (8x8 grid) -->
+  <g transform="translate(150, 200) rotate(30) skewX(-10)">
+    <!-- Generated grid of cells -->
+    <script type="application/ecmascript">
+      <![CDATA[
+      function generateGrid() {
+        const cols = 8;
+        const rows = 8;
+        const cellSize = 30;
+        const spacing = 4;
+        let cells = '';
+        
+        for (let i = 0; i < rows; i++) {
+          for (let j = 0; j < cols; j++) {
+            const x = j * (cellSize + spacing);
+            const y = i * (cellSize + spacing);
+            
+            // Determine cell type
+            let cellType = 'normal';
+            let content = '';
+            
+            if ((i + j) % 9 === 0) {
+              cellType = 'revealed';
+              content = '<text x="' + (x + cellSize/2) + '" y="' + (y + cellSize/2 + 8) + '" font-family="Arial" font-size="18" fill="white" text-anchor="middle">' + (Math.floor(Math.random() * 3) + 1) + '</text>';
+            } else if ((i * j) % 11 === 0) {
+              cellType = 'bomb';
+              content = '<text x="' + (x + cellSize/2) + '" y="' + (y + cellSize/2 + 8) + '" font-family="Arial" font-size="18" fill="white" text-anchor="middle">💣</text>';
+            } else if ((i + j) % 7 === 0) {
+              content = '<text x="' + (x + cellSize/2) + '" y="' + (y + cellSize/2 + 8) + '" font-family="Arial" font-size="18" fill="white" text-anchor="middle">🚩</text>';
+            }
+            
+            // Cell background color
+            let bgColor = '#1a3a6a';
+            if (cellType === 'revealed') bgColor = '#2a4a7a';
+            if (cellType === 'bomb') bgColor = '#8a2a3a';
+            
+            cells += '<rect x="' + x + '" y="' + y + '" width="' + cellSize + '" height="' + cellSize + '" rx="2" fill="' + bgColor + '" filter="drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3))"/>' + content;
+          }
+        }
+        
+        document.getElementById('cellsContainer').innerHTML = cells;
+      }
+      
+      // Call the function when SVG is loaded
+      window.addEventListener('DOMContentLoaded', generateGrid);
+      ]]>
+    </script>
+    <g id="cellsContainer">
+      <!-- Cells will be inserted here by the script -->
+      <!-- Fallback for static viewing -->
+      <rect x="0" y="0" width="30" height="30" rx="2" fill="#1a3a6a"/>
+      <rect x="34" y="0" width="30" height="30" rx="2" fill="#2a4a7a"/>
+      <text x="49" y="18" font-family="Arial" font-size="18" fill="white" text-anchor="middle">1</text>
+      <rect x="68" y="0" width="30" height="30" rx="2" fill="#1a3a6a"/>
+      <rect x="102" y="0" width="30" height="30" rx="2" fill="#1a3a6a"/>
+      <text x="117" y="18" font-family="Arial" font-size="18" fill="white" text-anchor="middle">🚩</text>
+      <rect x="136" y="0" width="30" height="30" rx="2" fill="#8a2a3a"/>
+      <text x="151" y="18" font-family="Arial" font-size="18" fill="white" text-anchor="middle">💣</text>
+      
+      <rect x="0" y="34" width="30" height="30" rx="2" fill="#1a3a6a"/>
+      <rect x="34" y="34" width="30" height="30" rx="2" fill="#1a3a6a"/>
+      <rect x="68" y="34" width="30" height="30" rx="2" fill="#2a4a7a"/>
+      <text x="83" y="52" font-family="Arial" font-size="18" fill="white" text-anchor="middle">2</text>
+      <rect x="102" y="34" width="30" height="30" rx="2" fill="#1a3a6a"/>
+      <rect x="136" y="34" width="30" height="30" rx="2" fill="#1a3a6a"/>
+      <text x="151" y="52" font-family="Arial" font-size="18" fill="white" text-anchor="middle">🚩</text>
+      
+      <!-- Just a few more static cells -->
+      <rect x="0" y="68" width="30" height="30" rx="2" fill="#8a2a3a"/>
+      <text x="15" y="86" font-family="Arial" font-size="18" fill="white" text-anchor="middle">💣</text>
+      <rect x="34" y="68" width="30" height="30" rx="2" fill="#1a3a6a"/>
+      <rect x="68" y="68" width="30" height="30" rx="2" fill="#1a3a6a"/>
+      <rect x="102" y="68" width="30" height="30" rx="2" fill="#2a4a7a"/>
+      <text x="117" y="86" font-family="Arial" font-size="18" fill="white" text-anchor="middle">3</text>
+    </g>
+  </g>
+  
+  <!-- Explosion effect -->
+  <radialGradient id="explosionGradient" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+    <stop offset="0%" stop-color="rgba(255,255,0,0.7)"/>
+    <stop offset="50%" stop-color="rgba(255,69,0,0.5)"/>
+    <stop offset="100%" stop-color="rgba(255,0,0,0)"/>
+  </radialGradient>
+  <circle cx="380" cy="350" r="50" fill="url(#explosionGradient)" opacity="0.8"/>
+  <circle cx="520" cy="280" r="30" fill="url(#explosionGradient)" opacity="0.6"/>
+  
+  <!-- Score panel -->
+  <rect x="100" y="120" width="650" height="80" rx="5" fill="rgba(10, 25, 50, 0.7)"/>
+  <rect x="200" y="150" width="250" height="35" rx="5" fill="rgba(0, 20, 50, 0.5)" stroke="rgba(100, 150, 255, 0.3)" stroke-width="1"/>
+  <text x="220" y="175" font-family="monospace" font-size="18" fill="#80c0ff">SCORE</text>
+  <text x="320" y="175" font-family="monospace" font-size="18" fill="white">00015</text>
+  <text x="420" y="175" font-family="Arial" font-size="18" fill="crimson">♥️♥️♥️</text>
+  
+  <!-- Features section -->
+  <text x="975" y="100" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#80c0ff" text-anchor="middle">Features</text>
+  
+  <!-- Feature list -->
+  <g transform="translate(850, 150)">
+    <text x="30" y="0" font-family="Arial, sans-serif" font-size="18" fill="white">💣 Multiple difficulty levels</text>
+    <text x="30" y="40" font-family="Arial, sans-serif" font-size="18" fill="white">💣 Stunning visual effects</text>
+    <text x="30" y="80" font-family="Arial, sans-serif" font-size="18" fill="white">💣 Realistic explosions</text>
+    <text x="30" y="120" font-family="Arial, sans-serif" font-size="18" fill="white">💣 Dynamic lighting</text>
+    <text x="30" y="160" font-family="Arial, sans-serif" font-size="18" fill="white">💣 Score tracking</text>
+    <text x="30" y="200" font-family="Arial, sans-serif" font-size="18" fill="white">💣 Mobile optimized</text>
+  </g>
+  
+  <!-- CTA Button -->
+  <rect x="850" y="450" width="250" height="60" rx="5" fill="rgba(0, 100, 255, 0.3)" stroke="rgba(100, 150, 255, 0.5)" stroke-width="1" filter="drop-shadow(0 0 10px rgba(0, 150, 255, 0.5))"/>
+  <text x="975" y="490" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">Play Now!</text>
+  
+  <!-- Bomb model illustration -->
+  <circle cx="500" cy="400" r="30" fill="#151515" filter="drop-shadow(0 5px 5px rgba(0, 0, 0, 0.5))"/>
+  <line x1="500" y1="400" x2="500" y2="375" stroke="#8B4513" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="500" cy="370" r="5" fill="#FF4500" filter="drop-shadow(0 0 5px rgba(255, 69, 0, 0.7))"/>
+</svg> 
