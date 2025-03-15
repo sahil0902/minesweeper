@@ -80,7 +80,7 @@ The game includes immersive sound effects for:
 ## 👥 Credits
 
 - Game design and development by Sahil
-- Visual effects and enhancements by your friendly AI assistant
+- Visual effects and enhancements by your friendly AI assistant (claude sonnet 3.7)
 - Three.js for the 3D rendering capabilities
 - Inspiration from the classic Minesweeper game
 
